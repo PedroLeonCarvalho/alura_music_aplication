@@ -1,6 +1,8 @@
 package com.example.alura_musica_app;
 
 import com.example.alura_musica_app.main.Principal;
+import com.example.alura_musica_app.repository.ArtistaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AluraMusicaAppApplication implements CommandLineRunner {
 
-
+	@Autowired
+private ArtistaRepository repositorio;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AluraMusicaAppApplication.class, args);
@@ -17,7 +20,8 @@ public class AluraMusicaAppApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Principal principal = new Principal();
+		Principal principal = new Principal(repositorio);
+
 		principal.exibeMenu();
 
 	}

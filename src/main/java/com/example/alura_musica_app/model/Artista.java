@@ -1,12 +1,13 @@
 package com.example.alura_musica_app.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "artistas")
+@Table
 public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +16,14 @@ public class Artista {
     private String nome;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private Genero genero;
 
-    @OneToMany (mappedBy = "artista")
+    @OneToMany (mappedBy = "artista" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<Musica> musicas = new ArrayList<>();
+
+    public Artista() {
+    }
 
     public Artista(String nome, Genero genero) {
         this.nome = nome;

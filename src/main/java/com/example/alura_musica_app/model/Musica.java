@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "musicas")
+@Table
 public class Musica {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,14 +13,22 @@ private Long id;
 
 private String titulo;
 
-@ManyToOne
-    private Artista artista;
+@ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+private Artista artista;
+
+    public Musica(String tituloMusica) {
+        this.titulo = tituloMusica;
+
+    }
+
+    public Musica() {
+    }
 
     @Override
     public String toString() {
         return "Musica{" +
                 "titulo='" + titulo + '\'' +
-                ", artista=" + artista +
+                ", artista=" + artista.getNome()+
                 '}';
     }
 
